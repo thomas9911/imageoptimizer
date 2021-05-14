@@ -1,5 +1,5 @@
 use crate::error::Error;
-use std::fs::write;
+use std::fs::{read, write};
 
 pub fn convert(input: &str, output: &str) -> Result<(), Box<dyn std::error::Error>> {
     run(input, output)
@@ -33,7 +33,8 @@ fn run(path: &str, out: &str) -> Result<(), Box<dyn std::error::Error>> {
 
 fn load(path: &str) -> Result<(Vec<[u8; 3]>, usize, usize), Box<dyn std::error::Error>> {
     std::panic::catch_unwind(|| {
-        let d = mozjpeg::Decompress::with_markers(mozjpeg::ALL_MARKERS).from_path(path)?;
+        let binary = read(path)?;
+        let d = mozjpeg::Decompress::with_markers(mozjpeg::ALL_MARKERS).from_mem(&binary)?;
 
         let width = d.width();
         let height = d.height();

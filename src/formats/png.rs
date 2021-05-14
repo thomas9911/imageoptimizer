@@ -18,7 +18,7 @@ fn load(path: &str) -> Result<(png::OutputInfo, std::vec::Vec<u8>), Box<dyn std:
     Ok((info, buf))
 }
 
-fn convert_to_pixels<'a>(data: Vec<u8>, pixel_size: usize) -> Vec<RGBA8> {
+fn convert_to_pixels<'a>(data: Vec<u8>, _: usize) -> Vec<RGBA8> {
     data.as_slice()
         .as_rgb()
         .into_iter()
