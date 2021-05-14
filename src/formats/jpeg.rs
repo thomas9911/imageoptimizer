@@ -1,4 +1,6 @@
 use crate::error::Error;
+// use rgb::RGB8;
+
 use std::fs::{read, write};
 
 pub fn convert(input: &str, output: &str) -> Result<(), Box<dyn std::error::Error>> {
@@ -8,7 +10,7 @@ pub fn convert(input: &str, output: &str) -> Result<(), Box<dyn std::error::Erro
 fn run(path: &str, out: &str) -> Result<(), Box<dyn std::error::Error>> {
     let (pixels, width, height) = load(path)?;
 
-    std::panic::catch_unwind(|| {
+    let jpeg_bytes = std::panic::catch_unwind(|| {
         let mut comp = mozjpeg::Compress::new(mozjpeg::ColorSpace::JCS_RGB);
 
         comp.set_size(width, height);
@@ -24,11 +26,13 @@ fn run(path: &str, out: &str) -> Result<(), Box<dyn std::error::Error>> {
 
         comp.finish_compress();
         let jpeg_bytes = comp.data_to_vec().or(Err("broken:("))?;
-        write(out, jpeg_bytes)?;
-        Ok(())
+        Ok(jpeg_bytes)
     })
     .map_err(any_to_error)
-    .and_then(std::convert::identity)
+    .and_then(std::convert::identity)?;
+
+    write(out, jpeg_bytes)?;
+    Ok(())
 }
 
 fn load(path: &str) -> Result<(Vec<[u8; 3]>, usize, usize), Box<dyn std::error::Error>> {
