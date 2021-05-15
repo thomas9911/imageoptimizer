@@ -14,3 +14,4 @@ imagequant = "3.0.3+sys2.14.0"
 rgb = "0.8.27"
 svgcleaner = {version = "0.9.5", default_features = false}
 svgdom = "*"
+webp = "0.1"

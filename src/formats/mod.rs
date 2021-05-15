@@ -1,6 +1,7 @@
 pub mod jpeg;
 pub mod png;
 pub mod svg;
+pub mod webp;
 
 use crate::error::Error;
 use std::path::Path;
@@ -10,6 +11,7 @@ pub enum Format {
     Jpeg,
     Png,
     Svg,
+    Webp,
 }
 
 impl std::fmt::Display for Format {
@@ -19,6 +21,7 @@ impl std::fmt::Display for Format {
             Jpeg => write!(f, "jpg"),
             Png => write!(f, "png"),
             Svg => write!(f, "svg"),
+            Webp => write!(f, "webp"),
         }
     }
 }
@@ -31,6 +34,7 @@ impl std::str::FromStr for Format {
             "jpeg" | "jpg" => Ok(Format::Jpeg),
             "png" => Ok(Format::Png),
             "svg" => Ok(Format::Svg),
+            "webp" => Ok(Format::Webp),
             _ => Err(Error::new(format!("{} cannot be optimized", s))),
         }
     }

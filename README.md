@@ -9,6 +9,7 @@ just a binary that optimzes images
 - jpeg: [mozjpeg](https://github.com/ImageOptim/mozjpeg-rust)
 - png: pngquant ([libimagequant](https://github.com/ImageOptim/libimagequant))
 - svg: [svgcleaner](https://github.com/RazrFalcon/svgcleaner)
+- web: [webp](https://github.com/jaredforth/webp) (currently only outputs to webp, with quality set to 80)
 
 ## test images
 

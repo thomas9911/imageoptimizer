@@ -33,27 +33,21 @@ fn convert_data_folder() {
 
 fn to_files(path: std::path::PathBuf) -> Vec<String> {
     use std::ffi::OsString;
+    fn path_to_string(path: std::path::PathBuf) -> String {
+        path.file_name().unwrap().to_str().unwrap().to_string()
+    }
 
     if let Some(x) = path.extension() {
         if [OsString::from("jpg"), OsString::from("png")].contains(&x.to_os_string()) {
             return vec![
-                path.with_extension("png")
-                    .file_name()
-                    .unwrap()
-                    .to_str()
-                    .unwrap()
-                    .to_string(),
-                path.with_extension("jpg")
-                    .file_name()
-                    .unwrap()
-                    .to_str()
-                    .unwrap()
-                    .to_string(),
+                path_to_string(path.with_extension("png")),
+                path_to_string(path.with_extension("jpg")),
+                path_to_string(path.with_extension("webp")),
             ];
         }
     }
 
-    vec![path.file_name().unwrap().to_str().unwrap().to_string()]
+    vec![path_to_string(path)]
 }
 
 fn command(input: &str, output: &str) -> Result<std::process::Output, std::io::Error> {

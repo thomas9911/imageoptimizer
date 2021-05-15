@@ -32,6 +32,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         (Jpeg, Jpeg) => formats::jpeg::convert(&config.input, &config.output)?,
         (Jpeg, Png) => formats::png::convert_from_jpeg(&config.input, &config.output)?,
         (Png, Jpeg) => formats::jpeg::convert_from_png(&config.input, &config.output)?,
+        (Png, Webp) => formats::webp::convert_from_png(&config.input, &config.output)?,
+        (Jpeg, Webp) => formats::webp::convert_from_jpeg(&config.input, &config.output)?,
         (Svg, Svg) => formats::svg::convert(&config.input, &config.output)?,
         _ => return Err(Error::boxed("unsupported input output convertion".into())),
     }
