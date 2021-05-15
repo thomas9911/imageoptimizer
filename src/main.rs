@@ -10,7 +10,7 @@ pub use formats::Format;
 ///
 /// Input format should be the same as the output format
 ///
-/// Supported formats: [Jpeg, Png]
+/// Supported formats: [Jpeg, Png, Svg, Webp]
 ///
 ///
 struct Args {
