@@ -2,6 +2,7 @@ use rgb::{ComponentBytes, FromSlice};
 use rgb::{RGB8, RGBA8};
 
 use crate::error::Error;
+use crate::formats;
 use std::fs::{read, File};
 use std::io::BufWriter;
 
@@ -15,6 +16,23 @@ pub fn convert(input: &str, output: &str) -> Result<(), Box<dyn std::error::Erro
         info.width as usize,
         info.height as usize,
     )
+}
+
+pub fn convert_from_jpeg(input: &str, output: &str) -> Result<(), Box<dyn std::error::Error>> {
+    let (data, width, height) = formats::jpeg::load(input)?;
+    let options = ::png::OutputInfo {
+        width: width as u32,
+        height: height as u32,
+        color_type: ::png::ColorType::RGB,
+        bit_depth: ::png::BitDepth::Eight,
+        line_size: 0,
+    };
+
+    let (palette, data) = apply(&options, data.as_bytes().to_vec())?;
+
+    save(output, palette, data, width, height)?;
+
+    Ok(())
 }
 
 pub fn apply(

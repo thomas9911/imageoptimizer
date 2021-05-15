@@ -1,5 +1,7 @@
 use crate::error::Error;
-// use rgb::RGB8;
+use crate::formats;
+use rgb::ComponentBytes;
+use rgb::RGB8;
 
 use std::fs::{read, write};
 
@@ -9,8 +11,22 @@ pub fn convert(input: &str, output: &str) -> Result<(), Box<dyn std::error::Erro
     save(output, jpeg_bytes)
 }
 
+pub fn convert_from_png(input: &str, output: &str) -> Result<(), Box<dyn std::error::Error>> {
+    let (info, data) = formats::png::load(input)?;
+
+    let data = apply(
+        convert_to_pixels(data, info.color_type.samples())?,
+        info.width as usize,
+        info.height as usize,
+    )?;
+
+    save(output, data)?;
+
+    Ok(())
+}
+
 pub fn apply(
-    pixels: Vec<[u8; 3]>,
+    pixels: Vec<RGB8>,
     width: usize,
     height: usize,
 ) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
@@ -21,12 +37,7 @@ pub fn apply(
         comp.set_mem_dest();
         comp.start_compress();
 
-        let data: Vec<u8> = pixels
-            .into_iter()
-            .flat_map(|[a, b, c]| vec![a, b, c])
-            .collect();
-
-        comp.write_scanlines(&data[..]);
+        comp.write_scanlines(pixels.as_bytes());
 
         comp.finish_compress();
         let jpeg_bytes = comp.data_to_vec().or(Err("unable to convert jpeg bytes"))?;
@@ -38,7 +49,7 @@ pub fn apply(
     Ok(jpeg_bytes)
 }
 
-pub fn load(path: &str) -> Result<(Vec<[u8; 3]>, usize, usize), Box<dyn std::error::Error>> {
+pub fn load(path: &str) -> Result<(Vec<RGB8>, usize, usize), Box<dyn std::error::Error>> {
     std::panic::catch_unwind(|| {
         let binary = read(path)?;
         let d = mozjpeg::Decompress::with_markers(mozjpeg::ALL_MARKERS).from_mem(&binary)?;
@@ -63,4 +74,32 @@ pub fn save(path: &str, jpeg_bytes: Vec<u8>) -> Result<(), Box<dyn std::error::E
 
 fn any_to_error(x: Box<dyn std::any::Any + std::marker::Send>) -> Box<dyn std::error::Error> {
     Box::new(Error::new(format!("{:?}", x)))
+}
+
+fn convert_to_pixels<'a>(
+    data: Vec<u8>,
+    pixel_size: usize,
+) -> Result<Vec<rgb::RGB8>, Box<dyn std::error::Error>> {
+    use rgb::FromSlice;
+    fn rgba_to_rgb(x: &rgb::RGBA8) -> rgb::RGB8 {
+        if x.a == 0 {
+            return rgb::RGB8::new(255, 255, 255);
+        }
+
+        x.rgb()
+    }
+
+    if pixel_size == 3 {
+        return Ok(data.as_rgb().into_iter().copied().collect());
+    }
+    if pixel_size == 4 {
+        return Ok(data
+            .as_slice()
+            .as_rgba()
+            .into_iter()
+            .map(rgba_to_rgb)
+            .collect());
+    }
+
+    return Err(Error::boxed("png format not supported".into()));
 }

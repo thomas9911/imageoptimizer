@@ -18,15 +18,42 @@ fn convert_data_folder() {
     for file in read_dir(DATA_FOLDER).unwrap() {
         let file = file.unwrap();
         let filename = file.file_name().into_string().unwrap();
-        command(
-            &format!("{}/{}", DATA_FOLDER, filename),
-            &format!("{}/{}", CONVERT_FOLDER, filename),
-        )
-        .unwrap();
-        std::io::stderr()
-            .write_all(&format!("done {}\n", filename).as_bytes())
-            .unwrap()
+        for out in to_files(file.path()) {
+            command(
+                &format!("{}/{}", DATA_FOLDER, filename),
+                &format!("{}/{}", CONVERT_FOLDER, out),
+            )
+            .unwrap();
+            std::io::stderr()
+                .write_all(&format!("done {}\n", out).as_bytes())
+                .unwrap()
+        }
     }
+}
+
+fn to_files(path: std::path::PathBuf) -> Vec<String> {
+    use std::ffi::OsString;
+
+    if let Some(x) = path.extension() {
+        if [OsString::from("jpg"), OsString::from("png")].contains(&x.to_os_string()) {
+            return vec![
+                path.with_extension("png")
+                    .file_name()
+                    .unwrap()
+                    .to_str()
+                    .unwrap()
+                    .to_string(),
+                path.with_extension("jpg")
+                    .file_name()
+                    .unwrap()
+                    .to_str()
+                    .unwrap()
+                    .to_string(),
+            ];
+        }
+    }
+
+    vec![path.file_name().unwrap().to_str().unwrap().to_string()]
 }
 
 fn command(input: &str, output: &str) -> Result<std::process::Output, std::io::Error> {
