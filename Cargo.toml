@@ -11,4 +11,6 @@ mozjpeg = "0.8.24"
 structopt = {version = "0.3", default_features = false}
 png = "0.16"
 imagequant = "3.0.3+sys2.14.0"
-rgb = "*"
+rgb = "0.8.27"
+svgcleaner = {version = "0.9.5", default_features = false}
+svgdom = "*"

@@ -25,6 +25,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     match Format::from_path(&config.input)? {
         Format::Png => formats::png::convert(&config.input, &config.output)?,
         Format::Jpeg => formats::jpeg::convert(&config.input, &config.output)?,
+        Format::Svg => formats::svg::convert(&config.input, &config.output)?,
     }
 
     Ok(())

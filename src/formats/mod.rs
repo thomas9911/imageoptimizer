@@ -1,5 +1,6 @@
 pub mod jpeg;
 pub mod png;
+pub mod svg;
 
 use crate::error::Error;
 use std::path::Path;
@@ -8,6 +9,7 @@ use std::path::Path;
 pub enum Format {
     Jpeg,
     Png,
+    Svg,
 }
 
 impl std::fmt::Display for Format {
@@ -16,6 +18,7 @@ impl std::fmt::Display for Format {
         match self {
             Jpeg => write!(f, "jpg"),
             Png => write!(f, "png"),
+            Svg => write!(f, "svg"),
         }
     }
 }
@@ -27,6 +30,7 @@ impl std::str::FromStr for Format {
         match s.to_lowercase().as_ref() {
             "jpeg" | "jpg" => Ok(Format::Jpeg),
             "png" => Ok(Format::Png),
+            "svg" => Ok(Format::Svg),
             _ => Err(Error::new(format!("{} cannot be optimized", s))),
         }
     }

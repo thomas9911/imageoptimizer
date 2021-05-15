@@ -1,13 +1,16 @@
 use std::fs::read_dir;
-use std::process::Command;
 use std::io::Write;
+use std::process::Command;
 
 const DATA_FOLDER: &'static str = "data";
 const CONVERT_FOLDER: &'static str = "converted";
 
 #[test]
 fn convert_data_folder() {
-    let output = Command::new("cargo").args(&["build", "--release"]).output().unwrap();
+    let output = Command::new("cargo")
+        .args(&["build", "--release"])
+        .output()
+        .unwrap();
 
     std::io::stdout().write_all(&output.stdout).unwrap();
     std::io::stderr().write_all(&output.stderr).unwrap();
@@ -20,7 +23,9 @@ fn convert_data_folder() {
             &format!("{}/{}", CONVERT_FOLDER, filename),
         )
         .unwrap();
-        std::io::stderr().write_all(&format!("done {}\n", filename).as_bytes()).unwrap()
+        std::io::stderr()
+            .write_all(&format!("done {}\n", filename).as_bytes())
+            .unwrap()
     }
 }
 
