@@ -181,7 +181,29 @@ dependencies = [
 ]
 
 [[package]]
-name = "image_optimizer"
+name = "imagequant"
+version = "3.0.3+sys2.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "670a496b08ae806100367d0c3734ccf48562d8f3f1c61c2c6f13e6aca1ae2881"
+dependencies = [
+ "imagequant-sys",
+ "libc",
+ "rgb",
+]
+
+[[package]]
+name = "imagequant-sys"
+version = "3.0.6+sys2.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2ecc4e7ac6819ece33be83cedcf43caaced03f340a96f14b3da7a90f41111319"
+dependencies = [
+ "bitflags",
+ "cc",
+ "rgb",
+]
+
+[[package]]
+name = "imgopt"
 version = "0.1.0"
 dependencies = [
  "imagequant",
@@ -189,26 +211,6 @@ dependencies = [
  "png",
  "rgb",
  "structopt",
-]
-
-[[package]]
-name = "imagequant"
-version = "2.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c0b4956599cc38af9162b51fe752f73f3901b07139a6990b5dc63274868aae38"
-dependencies = [
- "imagequant-sys",
- "libc",
-]
-
-[[package]]
-name = "imagequant-sys"
-version = "2.13.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe496775eb341b68cbb07cfb1692e97360f28cc07d7ded535fb048db8e37a9ba"
-dependencies = [
- "cc",
- "rgb",
 ]
 
 [[package]]

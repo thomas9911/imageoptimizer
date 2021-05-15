@@ -1,5 +1,5 @@
 [package]
-name = "image_optimizer"
+name = "imgopt"
 version = "0.1.0"
 authors = ["Thomas Timmer <thomas.timmer@bettyblocks.com>"]
 edition = "2018"
@@ -9,7 +9,6 @@ edition = "2018"
 [dependencies]
 mozjpeg = "0.8.24"
 structopt = {version = "0.3", default_features = false}
-# lodepng = "3.4"
 png = "0.16"
-imagequant = "2.13"
+imagequant = "3.0.3+sys2.14.0"
 rgb = "*"
