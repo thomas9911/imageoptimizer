@@ -19,7 +19,10 @@ jobs:
         run: cargo build --release --verbose
       - name: Run tests
         run: cargo test --release --verbose
+      - name: Set env
+        run: echo "IMGOPT_VERSION=$(sh ./get_version.sh)" >> $GITHUB_ENV
       - uses: ncipollo/release-action@v1
         with:
           artifact: "target/release/imgopt"
+          tag: ${{ env.IMGOPT_VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
