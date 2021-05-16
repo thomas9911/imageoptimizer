@@ -1,5 +1,7 @@
 # Imgopt
 
+[![Rust](https://github.com/thomas9911/imgopt/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/thomas9911/imgopt/actions/workflows/rust.yml)
+
 just a binary that optimzes images
 
 ## Getting started

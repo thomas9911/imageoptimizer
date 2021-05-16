@@ -19,7 +19,7 @@ jobs:
         run: cargo build --release --verbose
       - name: Run tests
         run: cargo test --release --verbose
-      - uses: actions/upload-artifact@v2
+      - uses: ncipollo/release-action@v1
         with:
-          name: imgopt
-          path: target/release/imgopt
+          artifact: "target/release/imgopt"
+          token: ${{ secrets.GITHUB_TOKEN }}
