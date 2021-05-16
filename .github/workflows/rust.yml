@@ -21,6 +21,8 @@ jobs:
         run: cargo test --release --verbose
       - name: Set env
         run: echo "IMGOPT_VERSION=$(sh ./get_version.sh)" >> $GITHUB_ENV
+      - name: Strip binary
+        run: strip target/release/imgopt
       - uses: ncipollo/release-action@v1
         with:
           artifact: "target/release/imgopt"
