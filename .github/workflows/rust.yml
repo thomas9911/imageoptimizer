@@ -19,3 +19,7 @@ jobs:
         run: cargo build --release --verbose
       - name: Run tests
         run: cargo test --release --verbose
+      - uses: actions/upload-artifact@v2
+        with:
+          name: imgopt
+          path: target/release/imgopt
