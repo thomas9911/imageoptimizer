@@ -1,17 +1,18 @@
 [package]
 name = "imgopt"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Thomas Timmer <thomas.timmer@bettyblocks.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-mozjpeg = "0.8.24"
+mozjpeg = "0.9.1"
 structopt = {version = "0.3", default_features = false}
-png = "0.16"
+png = "0.17.1"
 imagequant = "3.0.3+sys2.14.0"
 rgb = "0.8.27"
 svgcleaner = {version = "0.9.5", default_features = false}
-svgdom = "*"
-webp = "0.1"
+# used by svgcleaner
+svgdom = "0.10.5"
+webp = "0.2.0"

@@ -23,7 +23,7 @@ pub fn convert_from_jpeg(input: &str, output: &str) -> Result<(), Box<dyn std::e
     let options = ::png::OutputInfo {
         width: width as u32,
         height: height as u32,
-        color_type: ::png::ColorType::RGB,
+        color_type: ::png::ColorType::Rgb,
         bit_depth: ::png::BitDepth::Eight,
         line_size: 0,
     };
@@ -87,9 +87,9 @@ pub fn load(
 ) -> Result<(png::OutputInfo, std::vec::Vec<u8>), Box<dyn std::error::Error>> {
     let data = read(path)?;
     let decoder = png::Decoder::new(&data[..]);
-    let (info, mut reader) = decoder.read_info()?;
-    let mut buf = vec![0; info.buffer_size()];
-    reader.next_frame(&mut buf)?;
+    let mut reader = decoder.read_info()?;
+    let mut buf = vec![0; reader.output_buffer_size()];
+    let info = reader.next_frame(&mut buf)?;
 
     Ok((info, buf))
 }
