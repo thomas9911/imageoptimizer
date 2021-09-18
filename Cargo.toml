@@ -12,10 +12,11 @@ path = "src/lib.rs"
 [[bin]]
 name = "imgopt"
 path = "src/main.rs"
+required-features = ["structopt"]
 
 [dependencies]
 mozjpeg = "0.9.1"
-structopt = {version = "0.3", default_features = false}
+structopt = {version = "0.3", default_features = false, optional = true}
 png = "0.17.1"
 imagequant = "3.0.3+sys2.14.0"
 rgb = "0.8.27"
@@ -23,3 +24,6 @@ svgcleaner = {version = "0.9.5", default_features = false}
 # used by svgcleaner
 svgdom = "0.10.5"
 webp = "0.2.0"
+
+[features]
+default = ["structopt"]
