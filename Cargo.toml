@@ -1,10 +1,9 @@
 [package]
 name = "imgopt"
-version = "0.2.1"
-authors = ["Thomas Timmer <thomas.timmer@bettyblocks.com>"]
+version = "0.3.0"
+authors = ["Thomas Timmer <thomastimmer11@hotmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
 name = "imgopt_lib"
 path = "src/lib.rs"
@@ -27,3 +26,6 @@ webp = "0.2.0"
 
 [features]
 default = ["structopt"]
+
+[dev-dependencies]
+assert_fs = {version = "1.0"}
