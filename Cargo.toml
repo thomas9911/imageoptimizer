@@ -1,8 +1,9 @@
 [package]
 name = "imgopt"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Thomas Timmer <thomastimmer11@hotmail.com>"]
 edition = "2018"
+license = "GPL-3.0-or-later"
 
 [lib]
 name = "imgopt_lib"
