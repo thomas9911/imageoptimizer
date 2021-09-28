@@ -1,6 +1,6 @@
 [package]
 name = "imgopt"
-version = "0.4.0"
+version = "0.4.1"
 authors = ["Thomas Timmer <thomastimmer11@hotmail.com>"]
 edition = "2018"
 license = "GPL-3.0-or-later"
@@ -18,7 +18,7 @@ required-features = ["structopt"]
 mozjpeg = "0.9.1"
 structopt = {version = "0.3", default_features = false, optional = true}
 png = "0.17.1"
-imagequant = "3.0.3+sys2.14.0"
+imagequant = "3.1.0"
 rgb = "0.8.27"
 svgcleaner = {version = "0.9.5", default_features = false}
 # used by svgcleaner
@@ -29,4 +29,4 @@ webp = "0.2.0"
 default = ["structopt"]
 
 [dev-dependencies]
-assert_fs = {version = "1.0"}
+assert_fs = "1.0"

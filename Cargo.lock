@@ -14,9 +14,14 @@ checksum = "aae1277d39aeec15cb388266ecc24b11c80469deae6067e17a1a7aa9e5c1f234"
 
 [[package]]
 name = "ahash"
-version = "0.4.7"
+version = "0.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "739f4a8db6605981345c5654f3a85b056ce52f37a39d34da03f25bf2151ea16e"
+checksum = "43bb833f0bf979d8475d38fbf09ed3b8a55e1885fe93ad3f93239fc6a4f17b98"
+dependencies = [
+ "getrandom",
+ "once_cell",
+ "version_check",
+]
 
 [[package]]
 name = "aho-corasick"
@@ -226,9 +231,9 @@ checksum = "ff511d5dc435d703f4971bc399647c9bc38e20cb41452e3b9feb4765419ed3f3"
 
 [[package]]
 name = "fallible_collections"
-version = "0.4.2"
+version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ad9169582543d2cfe9961be1e9eaf4fc42f9aa3483f7c485717b8dde36466ea"
+checksum = "eaefd4190151d458f16f0793d3452d7f13aeb3701566a4cefc4c37598876cc00"
 dependencies = [
  "hashbrown",
 ]
@@ -295,9 +300,9 @@ dependencies = [
 
 [[package]]
 name = "hashbrown"
-version = "0.9.1"
+version = "0.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d7afe4a420e3fe79967a00898cc1f4db7c8a49a9333a29f8a4bd76a253d5cd04"
+checksum = "ab5ef0d4909ef3724cc8cce6ccc8572c5c817592e9285f5464f8e86f8bd3726e"
 dependencies = [
  "ahash",
 ]
@@ -354,10 +359,11 @@ dependencies = [
 
 [[package]]
 name = "imagequant"
-version = "3.0.3+sys2.14.0"
+version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "670a496b08ae806100367d0c3734ccf48562d8f3f1c61c2c6f13e6aca1ae2881"
+checksum = "7920a93733f72255a09ad0401b5529e9200bbf7953861dd16f1ce882b0392c3f"
 dependencies = [
+ "fallible_collections",
  "imagequant-sys",
  "libc",
  "rgb",
@@ -365,9 +371,9 @@ dependencies = [
 
 [[package]]
 name = "imagequant-sys"
-version = "3.0.6+sys2.15.0"
+version = "3.1.0+sys2.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2ecc4e7ac6819ece33be83cedcf43caaced03f340a96f14b3da7a90f41111319"
+checksum = "2d995ae2de0917b90ee8dbae7d51b025187048fa1a75d2232223c475c765d070"
 dependencies = [
  "bitflags",
  "cc",
@@ -376,7 +382,7 @@ dependencies = [
 
 [[package]]
 name = "imgopt"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "assert_fs",
  "imagequant",
